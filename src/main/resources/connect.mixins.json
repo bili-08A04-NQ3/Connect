@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "top.niqiu.Mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "NoteBlockMixin",
+    "TargetBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
