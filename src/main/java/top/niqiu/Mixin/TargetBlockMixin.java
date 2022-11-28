@@ -19,7 +19,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import org.checkerframework.checker.units.qual.C;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -52,22 +51,27 @@ public class TargetBlockMixin {
         Block up1 = world.getBlockState(pos.up()).getBlock();
         BlockEntity up = world.getBlockEntity(pos.up(3));
         Connect.coolDownData.putIfAbsent(pos, 0L);
-        if (up1 instanceof NoteBlock noteBlock && up instanceof SignBlockEntity signBlockEntity && world.getTickOrder() - Connect.coolDownData.get(pos) > 1) {
+        if (up1 instanceof NoteBlock noteBlock && up instanceof SignBlockEntity signBlockEntity && world.getLunarTime() - Connect.coolDownData.get(pos) > 1) {
             if(Connect.data.containsKey(pos.up())) {
                 // reset clock
-                Connect.coolDownData.put(pos, world.getTickOrder());
+                Connect.coolDownData.put(pos, world.getLunarTime());
                 if (Connect.data.get(pos.up()).size() != 0) {
                     int i = Connect.data.get(pos.up()).get(0);
                     Connect.data.get(pos.up()).remove(0);
                     int j = entity instanceof PersistentProjectileEntity ? 20 : 8;
-                    if (!world.getBlockTickScheduler().isQueued(hitResult.getBlockPos(), state.getBlock())) {
+                    if (!world.getBlockTickScheduler().isScheduled(hitResult.getBlockPos(), state.getBlock())) {
                         setPower(world, state, i, hitResult.getBlockPos(), j);
                     }
                     return i;
                 }
             }
         }
-        return 0;
+        int i = calculatePower(hitResult, hitResult.getPos());
+        int j = entity instanceof PersistentProjectileEntity ? 20 : 8;
+        if (!world.getBlockTickScheduler().isScheduled(hitResult.getBlockPos(), state.getBlock())) {
+            setPower(world, state, i, hitResult.getBlockPos(), j);
+        }
+        return i;
     }
 
     private static int calculatePower(BlockHitResult hitResult, Vec3d pos) {
@@ -89,7 +93,7 @@ public class TargetBlockMixin {
     }
 
     private static void setPower(WorldAccess world, BlockState state, int power, BlockPos pos, int delay) {
-        world.setBlockState(pos, (BlockState)state.with(POWER, power), 3);
-        world.createAndScheduleBlockTick(pos, state.getBlock(), delay);
+        world.setBlockState(pos, state.with(POWER, power), 3);
+        world.getBlockTickScheduler().schedule(pos, state.getBlock(), delay);
     }
 }

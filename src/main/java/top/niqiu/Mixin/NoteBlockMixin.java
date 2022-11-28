@@ -43,7 +43,7 @@ public class NoteBlockMixin {
                 try {
                     StringBuilder builder = new StringBuilder();
                     for (int i = 0; i < 4; i++) {
-                        builder.append(signBlockEntity.getTextOnRow(i, true).getString());
+                        builder.append(signBlockEntity.getTextOnRow(i).getString());
                     }
                     URL url = new URL(builder.toString());
                     URLConnection connection = url.openConnection();

@@ -1,4 +1,4 @@
-{
+【{
   "schemaVersion": 1,
   "id": "connect",
   "version": "${version}",
@@ -27,9 +27,9 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.6",
+    "fabricloader": ">=0.14.10",
     "fabric": "*",
-    "minecraft": "~1.18.2",
+    "minecraft": "~1.16.5",
     "java": ">=17"
   },
   "suggests": {

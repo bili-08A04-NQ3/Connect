@@ -1,15 +1,9 @@
-# Connect!
-## 这是一个能链接Minecraft与现实网络模组
-### 部署方式
- - 目前模组支持1.18.2的Fabric.
-#### 网站部署方式
- - 网址返回的数据)格式为a,b,c,d,e,f,g,h,i ...
- - 他们都必须满足: 0 <= Number <= 15,否则在MC中会产生强模信号或崩溃.
- - ##### 例子
- - "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0"
- - "11,4,5,14,1,9,1,9,8,10"
- - "1,1,4,5,1,4,1,9,1,9,8,1,0"
-#### Minecraft内的部署方式:
- - 演示见[b站](https://www.bilibili.com/video/BV1dK411o7KF).
- - 在标靶被打击时,会由前至后得依次输出信号.
- - 若在同一gt(game tick)内被两次打击,则只会输出一次红石信号(感谢Mojang的屑代码让我知道这个特性)
+# Fabric Example Mod
+
+## Setup
+
+For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+
+## License
+
+This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
